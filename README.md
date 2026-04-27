@@ -15,3 +15,18 @@ At the end, the system gives a reflection summary based on user choices.
 - tree/reflection-tree.tsv → main logic
 - tree/tree-diagram.md → flow structure
 - write-up.md → design explanation
+
+
+## Agent (Optional Part B)
+
+Run the reflection system in CLI:
+
+### How to run locally (for testing)
+On your laptop:
+
+```bash
+cd agent
+python app.py
+```bash
+cd agent
+python app.py
