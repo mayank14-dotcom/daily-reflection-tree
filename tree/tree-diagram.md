@@ -18,7 +18,7 @@ Q3: What stands out in your work?
   ↓
 Q4: Contribution or expectation?
   ↓
-Reflection (Contribution)
+Reflection (Contribution) 
   ↓
 -------------------------
   ↓
