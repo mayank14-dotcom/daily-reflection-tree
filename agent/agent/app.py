@@ -2,10 +2,10 @@
 
 import pandas as pd
 
-# Load TSV file
+# Loaded TSV file
 df = pd.read_csv("../tree/reflection-tree.tsv", sep="\t")
 
-# Convert rows into dictionary
+
 nodes = {}
 for _, row in df.iterrows():
     nodes[row["id"]] = row.to_dict()
@@ -40,7 +40,7 @@ while current:
 
         state["answers"][node["id"]] = answer
 
-        # Move to next manually (simple logic for demo)
+        
         if node["id"] == "A1_OPEN":
             current = "A1_D1"
         elif node["id"] == "A2_OPEN":
@@ -49,7 +49,7 @@ while current:
             current = "A3_D1"
 
     elif node["type"] == "decision":
-        # simple routing (kept minimal for demo)
+        
         if node["id"] == "A1_D1":
             if state["answers"]["A1_OPEN"] in ["Productive", "Mixed"]:
                 current = "A1_Q_HIGH"
@@ -63,7 +63,7 @@ while current:
             current = "A3_R_SELF"
 
     elif node["type"] == "reflection":
-        print("\n💭 Reflection:")
+        print("\n Reflection:")
         print(node["text"])
         current = node.get("target")
 
@@ -71,7 +71,7 @@ while current:
         current = node.get("target")
 
     elif node["type"] == "summary":
-        print("\n📊 Summary:")
+        print("\n Summary:")
         print(node["text"])
         current = "END"
 
