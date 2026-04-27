@@ -1,1 +1,65 @@
+id	parentId	type	text	options	target	signal
 
+START	null	start	Good evening. Let’s reflect on your day.			
+
+A1_OPEN	START	question	How would you describe your day overall?	Productive|Tough|Mixed|Frustrating		
+
+A1_D1	A1_OPEN	decision		answer=Productive|Mixed:A1_Q_HIGH;answer=Tough|Frustrating:A1_Q_LOW		
+
+A1_Q_HIGH	A1_D1	question	When things went well today, what made it happen?	I prepared well|The team supported me|It just worked out|I adapted quickly		axis1:internal
+
+A1_Q_LOW	A1_D1	question	When things didn’t go well, what did you do?	Tried to control what I could|Waited for someone else|Felt stuck|Just pushed through		axis1:external
+
+A1_D2	A1_Q_HIGH	decision		answer=I prepared well|I adapted quickly:A1_R_INT;answer=The team supported me|It just worked out:A1_R_MIX		
+
+A1_D2B	A1_Q_LOW	decision		answer=Tried to control what I could|Just pushed through:A1_R_MIX;answer=Waited for someone else|Felt stuck:A1_R_EXT		
+
+A1_R_INT	A1_D2	reflection	You took ownership of what happened today. That shows strong personal agency.			axis1:internal
+
+A1_R_MIX	A1_D2	reflection	Some things were in your control, some were not. Noticing your role is the first step to improving it.			axis1:internal
+
+A1_R_EXT	A1_D2B	reflection	Today may have felt controlled by outside factors. Still, there were small choices you made — they matter.			axis1:external
+
+BRIDGE_1_2	A1_R_INT	bridge	Now let’s shift focus from control to contribution.		A2_OPEN	
+
+BRIDGE_1_2B	A1_R_MIX	bridge	Now let’s shift focus from control to contribution.		A2_OPEN	
+
+BRIDGE_1_2C	A1_R_EXT	bridge	Now let’s shift focus from control to contribution.		A2_OPEN	
+
+A2_OPEN	A1_R_INT	question	Think about your work today. What stands out?	I helped someone|I did my work|I expected more support|I felt unrecognized		
+
+A2_D1	A2_OPEN	decision		answer=I helped someone|I did my work:A2_Q_CONTRIB;answer=I expected more support|I felt unrecognized:A2_Q_ENTITLE		
+
+A2_Q_CONTRIB	A2_D1	question	What kind of contribution did you make?	Went beyond my role|Helped without being asked|Shared knowledge|Completed tasks well		axis2:contribution
+
+A2_Q_ENTITLE	A2_D1	question	What frustrated you the most?	Lack of recognition|Others not helping|Too much expectation|No support		axis2:entitlement
+
+A2_D2	A2_Q_CONTRIB	decision		answer=Went beyond my role|Helped without being asked:A2_R_HIGH;answer=Shared knowledge|Completed tasks well:A2_R_MID		
+
+A2_D2B	A2_Q_ENTITLE	decision		answer=Lack of recognition|No support:A2_R_MID;answer=Others not helping|Too much expectation:A2_R_LOW		
+
+A2_R_HIGH	A2_D2	reflection	You contributed beyond expectations. That builds strong value over time.			axis2:contribution
+
+A2_R_MID	A2_D2	reflection	You fulfilled your role and contributed at times. There is room to give more.			axis2:contribution
+
+A2_R_LOW	A2_D2B	reflection	Your focus stayed on what was missing today. A shift toward contribution can change this experience.			axis2:entitlement
+
+BRIDGE_2_3	A2_R_HIGH	bridge	Now let’s expand your perspective.		A3_OPEN	
+
+BRIDGE_2_3B	A2_R_MID	bridge	Now let’s expand your perspective.		A3_OPEN	
+
+BRIDGE_2_3C	A2_R_LOW	bridge	Now let’s expand your perspective.		A3_OPEN	
+
+A3_OPEN	A2_R_HIGH	question	When thinking about today’s challenges, who comes to mind?	Just me|My team|A colleague|Customer		
+
+A3_D1	A3_OPEN	decision		answer=Just me:A3_R_SELF;answer=My team:A3_R_TEAM;answer=A colleague|Customer:A3_R_WIDE		
+
+A3_R_SELF	A3_D1	reflection	Your focus stayed on yourself. Expanding perspective can reduce stress and increase meaning.			axis3:self
+
+A3_R_TEAM	A3_D1	reflection	You considered your team. That builds alignment and shared responsibility.			axis3:balanced
+
+A3_R_WIDE	A3_D1	reflection	You looked beyond yourself. That’s where real meaning in work comes from.			axis3:altro
+
+SUMMARY	A3_R_SELF	summary	Today you showed {axis1.dominant} control, {axis2.dominant} contribution, and a {axis3.dominant} perspective.		
+
+END	SUMMARY	end	Reflection complete. See you tomorrow.			
